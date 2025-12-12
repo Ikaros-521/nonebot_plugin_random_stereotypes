@@ -1,5 +1,5 @@
 from importlib.util import find_spec
-from typing import Any, Optional
+from typing import Any
 from typing_extensions import override
 
 from nonebot import require
@@ -47,9 +47,9 @@ class MemeGenerator(BaseMemeGenerator):
     async def generate(
         self,
         name: str,
-        images: Optional[list[tuple[str, bytes]]] = None,
-        texts: Optional[list[str]] = None,
-        args: Optional[dict[str, Any]] = None,
+        images: list[tuple[str, bytes]] | None = None,
+        texts: list[str] | None = None,
+        args: dict[str, Any] | None = None,
     ) -> bytes:
         return await generate_meme(
             name,

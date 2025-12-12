@@ -1,4 +1,4 @@
-from typing import Any, Optional, Union
+from typing import Any
 from typing_extensions import override
 
 from meme_generator import (
@@ -34,16 +34,7 @@ class MemeGenerator(BaseMemeGenerator):
 
     @staticmethod
     def format_error(
-        e: Union[
-            ImageDecodeError,
-            ImageEncodeError,
-            ImageAssetMissing,
-            DeserializeError,
-            ImageNumberMismatch,
-            TextNumberMismatch,
-            TextOverLength,
-            MemeFeedback,
-        ],
+        e: ImageDecodeError | ImageEncodeError | ImageAssetMissing | DeserializeError | ImageNumberMismatch | TextNumberMismatch | TextOverLength | MemeFeedback,
     ) -> str:
         if isinstance(e, ImageDecodeError):
             return f"Image decode error: {e.error}"
@@ -80,9 +71,9 @@ class MemeGenerator(BaseMemeGenerator):
     async def generate(
         self,
         name: str,
-        images: Optional[list[tuple[str, bytes]]] = None,
-        texts: Optional[list[str]] = None,
-        args: Optional[dict[str, Any]] = None,
+        images: list[tuple[str, bytes]] | None = None,
+        texts: list[str] | None = None,
+        args: dict[str, Any] | None = None,
     ) -> bytes:
         r = get_meme(name).generate(
             images=[Image(n, d) for n, d in images] if images else [],

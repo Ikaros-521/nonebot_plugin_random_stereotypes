@@ -1,9 +1,8 @@
 import random
-from collections.abc import Awaitable
+from collections.abc import Awaitable, Callable
 from contextlib import asynccontextmanager, suppress
 from datetime import timedelta
-from typing import Callable, Optional
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from cookit import format_timedelta
 from nonebot import logger, on_command
@@ -49,7 +48,7 @@ superuser_perm = SuperUser()
 
 
 @asynccontextmanager
-async def cool_down_tip_ctx(key: Optional[str] = None):
+async def cool_down_tip_ctx(key: str | None = None):
     bot = current_bot.get()
     ev = current_event.get()
 
@@ -86,15 +85,15 @@ async def cool_down_tip_ctx(key: Optional[str] = None):
 
 EXIT_CMDS = {"取消", "退出", "结束", "exit", "e", "quit", "q", "cancel", "c", "0"}
 
-NameInfoOptionalTuple: TypeAlias = tuple[Optional[str], Optional[Member]]
-NameInfoTuple: TypeAlias = tuple[str, Optional[Member]]
+NameInfoOptionalTuple: TypeAlias = tuple[str | None, Member | None]
+NameInfoTuple: TypeAlias = tuple[str, Member | None]
 
 
 async def extract_target_info(
     itf: Interface,
     scene: Scene,
     msg: UniMessage,
-) -> Optional[Member]:
+) -> Member | None:
     m = current_matcher.get()
 
     if not msg.has(At):
@@ -149,8 +148,8 @@ async def prompt_target_name_info(
 async def extract_or_prompt_target(
     itf: Interface,
     scene: Scene,
-    arg_msg: Optional[UniMessage] = None,
-) -> NameInfoTuple:  # noqa: RET503: NoReturn
+    arg_msg: UniMessage | None = None,
+) -> NameInfoTuple:
     if not arg_msg:
         return await prompt_target_name_info(itf, scene)
 

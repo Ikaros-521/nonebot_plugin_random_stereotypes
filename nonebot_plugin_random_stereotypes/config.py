@@ -1,6 +1,6 @@
 from enum import auto
 from pathlib import Path
-from typing import Any, Union
+from typing import Any
 
 from cookit import StrEnum
 from cookit.pyd import field_validator, type_validate_python
@@ -55,7 +55,7 @@ class ConfigModel(BaseModel):
 
     @field_validator("stereotypes_memes", mode="before")
     def _(cls, v: Any):  # noqa: N805
-        validated = type_validate_python(list[Union[MemeConfig, str]], v)
+        validated = type_validate_python(list[MemeConfig | str], v)
         return [MemeConfig(name=i) if isinstance(i, str) else i for i in validated]
 
 

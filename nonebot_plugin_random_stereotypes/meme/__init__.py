@@ -1,4 +1,4 @@
-from typing import Callable, Optional
+from collections.abc import Callable
 
 from nonebot import get_driver, logger
 
@@ -6,8 +6,8 @@ from ..config import MemeSource, config
 from .base import BaseMemeGenerator as BaseMemeGenerator, MemeMetadata as MemeMetadata
 from .random import RandomMemeGetter as RandomMemeGetter
 
-_meme_generator: Optional[BaseMemeGenerator] = None
-_random_meme_getter: Optional[RandomMemeGetter] = None
+_meme_generator: BaseMemeGenerator | None = None
+_random_meme_getter: RandomMemeGetter | None = None
 
 
 generator_source_func_map: dict[MemeSource, Callable[[], BaseMemeGenerator]] = {}

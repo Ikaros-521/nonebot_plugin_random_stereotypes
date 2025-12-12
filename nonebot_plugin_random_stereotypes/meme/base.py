@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 
 @dataclass
@@ -21,7 +21,7 @@ class BaseMemeGenerator(ABC):
     async def generate(
         self,
         name: str,
-        images: Optional[list[tuple[str, bytes]]] = None,
-        texts: Optional[list[str]] = None,
-        args: Optional[dict[str, Any]] = None,
+        images: list[tuple[str, bytes]] | None = None,
+        texts: list[str] | None = None,
+        args: dict[str, Any] | None = None,
     ) -> bytes: ...

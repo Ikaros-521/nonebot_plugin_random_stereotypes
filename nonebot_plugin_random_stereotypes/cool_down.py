@@ -2,7 +2,6 @@ import time
 from collections import defaultdict, deque
 from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import Optional
 
 from .config import config
 
@@ -38,7 +37,7 @@ class CoolDownManager:
         now = time.time()
         self.cool_times[key].extend(now for _ in range(self.cool_down_query_count))
 
-    def check_time_left_only(self, key: str) -> Optional[float]:
+    def check_time_left_only(self, key: str) -> float | None:
         if (
             (key not in self.cool_times)
             or (len(deq := self.cool_times[key]) < self.cool_down_query_count)

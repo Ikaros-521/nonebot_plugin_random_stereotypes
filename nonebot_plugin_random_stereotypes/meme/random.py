@@ -20,7 +20,7 @@ def calc_need_num(
     additional_len: int,
     actual_need_min: int,
     actual_need_max: int,
-) -> Optional[int]:
+) -> int | None:
     """
     计算符合期望区间内的最大所需数
     返回 None 表示不符合要求
